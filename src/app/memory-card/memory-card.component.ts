@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, DoCheck } from '@angular/core';
 import { GameService } from '../services/game.service';
 import { delay } from 'rxjs/operators';
+import {IconName, IconPrefix, IconProp} from "@fortawesome/fontawesome-svg-core";
 
 
 @Component({
@@ -12,13 +13,11 @@ export class MemoryCardComponent implements OnInit, DoCheck {
 
   constructor(private gameService: GameService) { }
 
-
-  @Input() type: string;
-  @Input() code: string;
+  @Input() type: string = null;
+  @Input() code: string = null;
   @Input() id: number;
 
-  // @ts-ignore
-  icon = [this.type, this.code];
+  icon = [this.type, this.code] as IconProp;
   isRotated: boolean;
 
   ngOnInit(): void {
@@ -26,7 +25,7 @@ export class MemoryCardComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    this.icon = [this.type, this.code];
+    this.icon = [this.type as IconPrefix, this.code as IconName];
   }
 
   undo() {
